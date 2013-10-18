@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<api>
+	<description>
+		<![CDATA[This API allows the querying of data surrounding participating fraternities and sororities and their approved events. Authenticated and approved users can add, modify, and delete events that they are designated to curate through these methods as well.]]>
+	</description>
+	
+	
+<!-- Badges API -->
+	<command id='badges' security='public'>
+		<description><![CDATA[This section reveals data about the Badges available to be earned through the use of the program.]]>
+		</description>
+		
+		<index>
+			<description><![CDATA[This returns a listing of all badges.]]>
+			</description>
+			
+			<action file='badges.php'><![CDATA[listBadges();]]></action>
+		</index>
+		
+		<get>
+			<description><![CDATA[By designating 'badges/{BADGE_ID}', you can get details about a specific badge including how to earn it, its title and description, and when it was created.]]>
+			</description>
+			
+			<action file='badges.php'><![CDATA[getBadge($_REST['badges']);]]></action>
+		</get>
+		<post> <!-- TODO should be private -->
+			<description><![CDATA[The post method allows the posting of new badges for approval if the user is logged in and authorized to submit events.]]>
+			</description>
+			
+			<action file='badges.php'><![CDATA[addBadge($_POST['badgeName'], $_POST['badgeGoal'], $_POST['badgeGoalUnits'], $_POST['badgeDescription'], $_POST['badgePreReq'], $_POST['badgeCustomPicUrl']);]]></action>
+			
+			<param id='badgeName'>
+				<description><![CDATA[Display name of the badge]]></description>
+				<exampleValue><![CDATA[Pledge]]></exampleValue>
+			</param>
+			<param id='badgeGoal'>
+				<description><![CDATA[Amount of GOAL_UNITs to earn the badge]]></description>
+				<exampleValue><![CDATA[5]]></exampleValue>
+			</param>
+			<param id='badgeGoalUnits'>
+				<description><![CDATA[Units in which the badge will be measured]]></description>
+				<exampleValue><![CDATA[Event Check-ins]]></exampleValue>
+			</param>
+			<param id='badgeDescription'>
+				<description><![CDATA[Description of the badge. Feel free to explain why the badge was made, more information about the badge, or whatever you want.]]></description>
+				<exampleValue><![CDATA[Join the ranks of the pledges by attending 5 events put on by any organization.]]></exampleValue>
+			</param>
+			<param id='badgePreReq'>
+				<description><![CDATA[BADGE_ID that must be completed before this badge. (optional)]]></description>
+				<exampleValue><![CDATA[1]]></exampleValue>
+			</param>
+			<param id='badgeCustomPicUrl'>
+				<description><![CDATA[URL for custom picture]]></description>
+				<exampleValue><![CDATA[http://bit.ly/18rs2bI]]></exampleValue>
+			</param>
+		</post>
+	</command>
+</api>
