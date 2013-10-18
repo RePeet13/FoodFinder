@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding = "utf-8" ?>
-<widget title="Frop">
+<widget title="Free Food">
     <library name="jquery"/>
     <library name="jquery.tmpl"/> 
     <library name="jquery.url"/> 
     
-    <html file="frop.html"/>
-    <css file="frop.css"/>
-    <javascript file="frop.js"/>
+    <html file="ff.html"/>
+    <css file="ff.css"/>
+    <javascript file="ff.js"/>
 	
     <library name="jquery.mobile"/> 
     <library name="gtmob"/>
