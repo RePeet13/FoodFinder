@@ -1,57 +1,60 @@
 <?xml version="1.0"?>
 <api>
 	<description>
-		<![CDATA[This API allows the querying of data surrounding participating fraternities and sororities and their approved events. Authenticated and approved users can add, modify, and delete events that they are designated to curate through these methods as well.]]>
+		<![CDATA[This API allows the querying of data surrounding free food on/near GT Campus.]]>
 	</description>
 	
 	
 <!-- Badges API -->
-	<command id='badges' security='public'>
-		<description><![CDATA[This section reveals data about the Badges available to be earned through the use of the program.]]>
+	<command id='food' security='public'>
+		<description><![CDATA[This section reveals data about the food available.]]>
 		</description>
 		
 		<index>
-			<description><![CDATA[This returns a listing of all badges.]]>
+			<description><![CDATA[This returns a listing of all food.]]>
 			</description>
 			
-			<action file='badges.php'><![CDATA[listBadges();]]></action>
+			<action file='food.php'><![CDATA[listFood();]]></action>
 		</index>
 		
 		<get>
-			<description><![CDATA[By designating 'badges/{BADGE_ID}', you can get details about a specific badge including how to earn it, its title and description, and when it was created.]]>
+			<description><![CDATA[By designating 'food/{food_id}', you can get details about a specific food, its title and description, and when it was created.]]>
 			</description>
 			
-			<action file='badges.php'><![CDATA[getBadge($_REST['badges']);]]></action>
+			<action file='food.php'><![CDATA[getFood($_REST['food']);]]></action>
 		</get>
-		<post> <!-- TODO should be private -->
-			<description><![CDATA[The post method allows the posting of new badges for approval if the user is logged in and authorized to submit events.]]>
+		<post>
+			<description>
+				<![CDATA[The post method allows the posting of new food if the user is logged in.]]>
 			</description>
 			
-			<action file='badges.php'><![CDATA[addBadge($_POST['badgeName'], $_POST['badgeGoal'], $_POST['badgeGoalUnits'], $_POST['badgeDescription'], $_POST['badgePreReq'], $_POST['badgeCustomPicUrl']);]]></action>
+			<action file='food.php'><![CDATA[addFood($_POST['foodDate'], $_POST['foodTitle'], $_POST['foodLocation'], $_POST['foodDescription'], $_POST['foodPicUrl'], $_POST['foodLatLong']);]]></action>
 			
-			<param id='badgeName'>
-				<description><![CDATA[Display name of the badge]]></description>
-				<exampleValue><![CDATA[Pledge]]></exampleValue>
+			<param id='foodDate'>
+				<description><![CDATA[Date when food will be available]]></description>
+				<exampleValue><![CDATA[2013-10-31]]></exampleValue>
 			</param>
-			<param id='badgeGoal'>
-				<description><![CDATA[Amount of GOAL_UNITs to earn the badge]]></description>
-				<exampleValue><![CDATA[5]]></exampleValue>
+			<param id='foodTitle'>
+				<description><![CDATA[Display title of the food]]></description>
+				<exampleValue><![CDATA[Microsoft Day in the Lobby]]></exampleValue>
 			</param>
-			<param id='badgeGoalUnits'>
-				<description><![CDATA[Units in which the badge will be measured]]></description>
-				<exampleValue><![CDATA[Event Check-ins]]></exampleValue>
+			<param id='foodLocation'>
+				<description><![CDATA[Location of the food]]></description>
+				<exampleValue><![CDATA[CoC Lobby]]></exampleValue>
 			</param>
-			<param id='badgeDescription'>
-				<description><![CDATA[Description of the badge. Feel free to explain why the badge was made, more information about the badge, or whatever you want.]]></description>
-				<exampleValue><![CDATA[Join the ranks of the pledges by attending 5 events put on by any organization.]]></exampleValue>
+			<param id='foodDescription'>
+				<description><![CDATA[Description of the food]]></description>
+				<exampleValue>
+					<![CDATA[Krispy Kreme doughnuts before noon and Papa John\'s after!]]>
+				</exampleValue>
 			</param>
-			<param id='badgePreReq'>
-				<description><![CDATA[BADGE_ID that must be completed before this badge. (optional)]]></description>
-				<exampleValue><![CDATA[1]]></exampleValue>
+			<param id='foodPicUrl'>
+				<description><![CDATA[Pic of food and/or location of food]]></description>
+				<exampleValue><![CDATA[http://www.licensing.gatech.edu/sites/devlicensing.gatech.edu/files/images/trademarks-big.gif]]></exampleValue>
 			</param>
-			<param id='badgeCustomPicUrl'>
-				<description><![CDATA[URL for custom picture]]></description>
-				<exampleValue><![CDATA[http://bit.ly/18rs2bI]]></exampleValue>
+			<param id='foodLatLong'>
+				<description><![CDATA[Latitude and Longitude of food]]></description>
+				<exampleValue><![CDATA[33.777417,-84.397522]]></exampleValue>
 			</param>
 		</post>
 	</command>
