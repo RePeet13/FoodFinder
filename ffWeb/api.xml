@@ -23,6 +23,7 @@
 			
 			<action file='food.php'><![CDATA[getFood($_REST['food']);]]></action>
 		</get>
+		
 		<post>
 			<description>
 				<![CDATA[The post method allows the posting of new food if the user is logged in.]]>
@@ -56,6 +57,19 @@
 				<description><![CDATA[Latitude and Longitude of food]]></description>
 				<exampleValue><![CDATA[33.777417,-84.397522]]></exampleValue>
 			</param>
+		</post>
+	</command>
+	
+
+	<command id='debug' security='public'>	
+		<description><![CDATA[Just prints global variables]]></description>
+		<index>
+			<description><![CDATA[Just prints global variables]]></description>
+		    <action file='debug.php'></action>
+		</index>
+		<post>
+			<description><![CDATA[Can practice posting, still just prints global variables]]></description>
+		    <action file='debug.php'></action>
 		</post>
 	</command>
 </api>

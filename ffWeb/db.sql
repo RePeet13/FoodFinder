@@ -8,7 +8,6 @@
 --
 -- Table Structure
 --
-pic_url	upvotes	lat_long	date_modified
 
 
 CREATE TABLE IF NOT EXISTS `food` (
@@ -21,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   `pic_url` varchar(160) DEFAULT NULL,
   `upvotes` int(11) DEFAULT 1,
   `lat_long` varchar(75),
-  `date_modified` NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`food_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_bin AUTO_INCREMENT=1 ;
 

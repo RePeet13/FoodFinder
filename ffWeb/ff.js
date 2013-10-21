@@ -1,4 +1,4 @@
-console.log("RUNNING FROP JAVASCRIPT");
+console.log("RUNNING FF JAVASCRIPT");
 console.log($("#list_events_page"));
 console.log($("#add_event_page"));
 console.log($("#event_detail_page"));
@@ -10,157 +10,137 @@ console.log($("#badge_detail_page"));
 $(function() {
  // Handler for .ready() called.
 	console.log("ready");
-	
-/* -- BADGE FUNCTIONS -- */
 
-	//Bind to the create so the list badges page gets updated with the listing
-	$(document).on("pagebeforeshow", "#list_badges_page", function(event, ui) {
+/* -- FOOD FUNCTIONS -- */
+
+	//Bind to the create so the food list page gets updated with the listing
+	$(document).on("pagebeforeshow", "#food_list_page", function(event, ui) {
 		console.log("pagebeforeshow");
 	
 		//Remove the old rows
-		$( ".badges_list_row" ).remove();
+		$( ".food_list_row" ).remove();
 		
 		//JQuery Fetch The New Ones
 		$.ajax({
-			url: "api/badges",
+			url: "api/food",
 			dataType: "json",
 	        async: false,
 	        success: function(data, textStatus, jqXHR) {
 				console.log(data);
 	        	//Create The New Rows From Template
-	        	$( "#badges_list_row_template" ).tmpl( data ).appendTo( "#badges_list" );
+	        	$( "#food_list_row_template" ).tmpl( data ).appendTo( "#food_list" );
 	        },
 	        error: ajaxError
 		});
 		
-		$("#badges_list").listview("refresh");
-	});
-		
-	//Bind the badge detail page init text
-	$(document).on("pagebeforeshow", "#badge_detail_page", function(event, ui) {
-		console.log("Badge Detail Page");
-		var badge_id = $.url().fparam("badge_id");
-		
-		//Remove the old rows
-		$( ".badge_detail_row" ).remove();
-		
-		//Instead of passing around in JS I am doing AJAX so direct links work
-		//JQuery Fetch The Event
-		$.ajax({
-			url: "api/badges/"+badge_id,
-			dataType: "json",
-	        async: false,
-	        success: function(data, textStatus, jqXHR) {
-				console.log(data);
-	       		$( "#badge_detail_template" ).tmpl( data ).appendTo( "#badge_detail" );
-	       		$( "#badge_head_title" )[0].innerHTML = data.NAME;
-	        },
-	        error: ajaxError
-		});
-	});
-
-/* -- EVENT FUNCTIONS -- */
-
-	//Bind to the create so the list events page gets updated with the listing
-//	$("#list_events_page").bind("pagebeforeshow",function(){//event, ui){
-	$(document).on("pagebeforeshow", "#list_events_page", function(event, ui) {
-		console.log("pagebeforeshow");
-	
-		//Remove the old rows
-		$( ".event_list_row" ).remove();
-		
-		//JQuery Fetch The New Ones
-		$.ajax({
-			url: "api/events",
-			dataType: "json",
-	        async: false,
-	        success: function(data, textStatus, jqXHR) {
-				console.log(data);
-	        	//Create The New Rows From Template
-	        	$( "#event_list_row_template" ).tmpl( data ).appendTo( "#events_list" );
-	        },
-	        error: ajaxError
-		});
-		
-		$("#events_list").listview("refresh");
+		$("#food_list").listview("refresh");
 	});
 	
-	//Bind the add event page clear text
-//	$("#add_event_page").bind("pagebeforeshow", function() {
-	$(document).on("pagebeforeshow", "#add_event_page", function(event, ui) {
-		console.log("Add Event Page");
-		$("#add_event_text")[0].value = "";
+	//Bind the food add page clear text
+	$(document).on("pagebeforeshow", "#food_add_page", function(event, ui) {
+		console.log("Add Food Page");
+		$("#food_add_title")[0].value = "";
 	});
 		
-	//Bind the add event page button
-//	$("#add_button").bind("click", function() {
-	$(document).on("pagebeforeshow", "#add_button", function(event, ui) {
+	//Bind the add food page button
+	$(document).on("pagebeforeshow", "#food_add_page_button", function(event, ui) {
 		console.log("Add Button");
 		$.ajax({
-			url: "api/events",
+			url: "api/food",
 			dataType: "json",
 	        async: false,
-			data: {"eventText": $("#add_event_text")[0].value},
+			data: {"foodTitle": $("#food_add_title")[0].value},
 			type: "POST",
 	        error: ajaxError
 		});
 	});
 		
-	//Bind the event detail page init text
-//	$("#event_detail_page").bind("pagebeforeshow", function() {
-	$(document).on("pagebeforeshow", "#event_detail_page", function(event, ui) {
-		console.log("Event Detail Page");
-		var event_id = $.url().fparam("event_id");
+	//Bind the food detail page init text
+	$(document).on("pagebeforeshow", "#food_detail_page", function(event, ui) {
+		console.log("Food Detail Page");
+		var food_id = $.url().fparam("food_id");
 		
 		//Remove the old rows
-		$( ".event_detail_row" ).remove();
+		$( ".food_detail_row" ).remove();
 		
 		//Instead of passing around in JS I am doing AJAX so direct links work
 		//JQuery Fetch The Event
 		$.ajax({
-			url: "api/events/"+event_id,
+			url: "api/food/"+food_id,
 			dataType: "json",
 	        async: false,
 	        success: function(data, textStatus, jqXHR) {
 				console.log(data);
-				data.ALCOHOL = (data.ALCOHOL == 1) ? "Yes" : "No";
-	       		$( "#event_detail_template" ).tmpl( data ).appendTo( "#event_detail" );
-	       		$( "#detail_head_title" )[0].innerHTML = data.DATE + " - " + data.TITLE;
+//	       		$( "#food_detail_template" ).tmpl( data ).appendTo( "#food_detail" );
+				$( "#detail_page_edit_button" )[0].setAttribute("href", "#food_edit_page&food_id=" + data.food_id);
+	       		$( "#food_detail_head_title" )[0].innerHTML = data.title;
+	       		$( "#detail_title" )[0].innerHTML = data.title;
+	       		$( "#detail_date" )[0].innerHTML = data.date;
+	       		$( "#detail_location" )[0].innerHTML = data.location;
+	       		$( "#detail_description" )[0].innerHTML = data.description;
+	       		$( "#detail_lat_long" )[0].innerHTML = data.lat_long;
+	       		$( "#detail_pic_url" )[0].setAttribute("src", data.pic_url);
+	       		$( "#detail_date_modified" )[0].innerHTML = "Modified " + data.date_modified;
+	       		$( "#detail_upvotes" )[0].innerHTML = "Upvoted " + data.upvotes + " times";
 	        },
 	        error: ajaxError
 		});
 	});
 	
 	//Bind the edit page init text
-//	$("#edit_event_page").bind("pagebeforeshow", function() {
-	$(document).on("pagebeforeshow", "#edit_event_page", function(event, ui) {
-		console.log("Edit Event Page");
-		var event_id = $.url().fparam("event_id");
-		
+	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
+		console.log("Edit Food Page");
+		var food_id = $.url().fparam("food_id");
 		//Instead of passing around in JS I am doing AJAX so direct links work
 		//JQuery Fetch The Event
-		$.ajax({
-			url: "api/events/"+event_id,
-			dataType: "json",
-	        async: false,
-	        success: function(data, textStatus, jqXHR) {
-				console.log(data);
-	       		$("#edit_event_text")[0].value = data.event;
-	        },
-	        error: ajaxError
-		});
+		if (food_id) {
+			$.ajax({
+				url: "api/food/"+food_id,
+				dataType: "json",
+			    async: false,
+			    success: function(data, textStatus, jqXHR) {
+					console.log(data);
+			   		$( "#food_edit_title" )[0].setAttribute("value", data.title);
+			   		$( "#food_edit_title" )[0].setAttribute("placeholder", "");
+			   		$( "#food_edit_date" )[0].setAttribute("value", data.date);
+			   		$( "#food_edit_date" )[0].setAttribute("placeholder", "");
+			   		$( "#food_edit_location" )[0].setAttribute("value", data.location);
+			   		$( "#food_edit_location" )[0].setAttribute("placeholder", "");
+			   		$( "#food_edit_description" )[0].setAttribute("value", data.description);
+			   		$( "#food_edit_description" )[0].setAttribute("placeholder", "");
+			   		$( "#food_edit_lat_long" )[0].setAttribute("value", data.lat_long);
+			   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "");
+			   		$( "#food_edit_pic_url" )[0].setAttribute("value", data.pic_url);
+			   		$( "#food_edit_pic_url" )[0].setAttribute("placeholder", "");
+			    },
+			    error: ajaxError
+			});
+		} else {
+			$( "#food_edit_title" )[0].setAttribute("value", "");
+			$( "#food_edit_title" )[0].setAttribute("placeholder", "Short but descriptive title");
+	   		$( "#food_edit_date" )[0].setAttribute("value", "");
+	   		$( "#food_edit_date" )[0].setAttribute("placeholder", "YYYY-MM-DDTHH:MM");
+	   		$( "#food_edit_location" )[0].setAttribute("value", "");
+	   		$( "#food_edit_location" )[0].setAttribute("placeholder", "Short but descriptive location");
+	   		$( "#food_edit_description" )[0].setAttribute("value", "");
+	   		$( "#food_edit_description" )[0].setAttribute("placeholder", "Description of place and food");
+	   		$( "#food_edit_lat_long" )[0].setAttribute("value", "");
+	   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "xx.xxxxx,xx.xxxxx");
+	   		$( "#food_edit_pic_url" )[0].setAttribute("value", "");
+	   		$( "#food_edit_pic_url" )[0].setAttribute("placeholder", "http://www.picurl.com/coolPic");
+		}
 	});
 	
 	//Bind the edit page save button
 //	$("#save_button").bind("click", function() {
 	$(document).on("pagebeforeshow", "#save_button", function(event, ui) {
 		console.log("Save Button");
-		var event_id = $.url().fparam("event_id");
+		var food_id = $.url().fparam("food_id");
 		$.ajax({
-			url: "api/events/"+event_id,
+			url: "api/food/"+food_id,
 			dataType: "json",
 	        async: false,
-			data: {"eventText": $("#edit_event_text")[0].value},
+			data: {"eventText": $("#food_edit_text")[0].value},
 			headers: {"X-HTTP-Method-Override": "PUT"},
 			type: "POST",
 	        error: ajaxError
@@ -168,12 +148,11 @@ $(function() {
 	});
 	
 	//Bind the edit page remove button
-//	$("#remove_button").bind("click", function() {
 	$(document).on("pagebeforeshow", "#remove_button", function(event, ui) {
 		console.log("Remove Button");
-		var event_id = $.url().fparam("event_id");
+		var food_id = $.url().fparam("food_id");
 		$.ajax({
-			url: "api/events/"+event_id,
+			url: "api/food/"+food_id,
 			dataType: "json",
 	        async: false,
 			type: "DELETE",
@@ -183,7 +162,7 @@ $(function() {
 	
 	//Cleanup of URL so we can have better client URL support
 //	$("#edit_event_page").bind("pagehide", function() {
-	$(document).on("pagebeforeshow", "#edit_event_page", function(event, ui) {
+	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
 		$(this).attr("data-url",$(this).attr("id"));
 		delete $(this).data()["url"];
 	});

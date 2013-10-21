@@ -1,0 +1,25 @@
+{
+    "gov_orgs": [
+        {
+            "GOV_ORG_ID": "1",
+            "NAME": "Interfraternity Council",
+            "ACRONYM": "IFC"
+        },
+        {
+            "GOV_ORG_ID": "2",
+            "NAME": "Collegiate Panhellenic Council",
+            "ACRONYM": "CPC"
+        },
+        {
+            "GOV_ORG_ID": "3",
+            "NAME": "National Pan-Hellenic Council",
+            "ACRONYM": "NPHC"
+        },
+        {
+            "GOV_ORG_ID": "4",
+            "NAME": "Multicultural Greek Council",
+            "ACRONYM": "MGC"
+        }
+    ]
+}
+

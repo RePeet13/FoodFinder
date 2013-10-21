@@ -1,54 +1,44 @@
 <!-- ------ Home Page ------ -->
-
+<!--
 <div data-role="page" id="home_page">
     <div data-role="header" data-position="inline" data-theme="d">
-	    <h1 class="head_title">Frop</h1>
-	    <!--
-        <a id="add_event_page_button" href="#add_event_page" data-transition="slide" data-icon="add" data-iconpos="notext" class="ui-btn-right"></a>
-        -->
+	    <h1 class="head_title">Free Food</h1>
+        <a id="food_add_page_button" href="#food_add_page" data-transition="slide" data-icon="add" data-iconpos="notext" class="ui-btn-right"></a>
    	</div>
 	
 	<div id="content" data-role="content">
 		<ul id="pages_list" data-role="listview" data-inset="true" data-filter="false" data-theme="c" data-divider-theme="b">
-			<li class="page_list_row" id="list_events_page">
-				<a href="#list_events_page" data-transition="slide" id="events_home_page_link">
-					<h1>Events</h1><p>Find or view details of approved events</p>
-				</a>
-			</li>
-			<li class="page_list_row" id="list_orgs_page">
-				<a href="#list_orgs_page" data-transition="slide">
-					<h1>Organizations</h1><p>Find information on your favorite organization</p>
-				</a>
-			</li>
-			<li class="page_list_row" id="list_badges_page">
-				<a href="#list_badges_page" data-transition="slide">
-					<h1>Badges</h1><p>Earn fun badges!</p>
-				</a>
-			</li>
-			<li class="page_list_row" id="list_gov_orgs_page">
-				<a href="#list_gov_orgs_page" data-transition="slide">
-					<h1>Governing Organizations</h1><p>Check out the organizations that run the show</p>
+			<li class="page_list_row" id="food_list_page_row">
+				<a href="#food_list_page" data-transition="slide" id="food_list_home_page_link">
+					<h1>Food</h1><p>Find or view details of submitted free food opportunities</p>
 				</a>
 			</li>
 		</ul>
 	</div>
 </div>
+-->
+<!-- --- -->
 
-<!-- ------ Badge Pages ------ -->
-
-<div data-role="page" id="list_badges_page">
-    <div data-role="header" data-position="inline" data-theme="d">
-	    <h1 class="head_title">Badges</h1>
-		<a href="#home_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>
-        <a id="add_badge_page_button" href="#add_event_page" data-transition="slide" data-icon="add" data-iconpos="notext" class="ui-btn-right"></a>
+<div data-role="page" id="food_list_page">
+    <div data-role="header" data-position="inline" data-theme="a">
+	    <h1 class="head_title">Food List</h1>
+		<!--<a href="#home_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>-->
+        <a id="food_add_page_button" href="#food_edit_page" data-transition="slide" data-icon="add" data-iconpos="notext" class="ui-btn-right" data-theme="d"></a>
    	</div>
 	
-	<div id="badge_list_page_content" data-role="content">
-		<ul id="badges_list" data-role="listview" data-inset="true" data-filter="true" data-theme="c" data-divider-theme="b">
-			<script id="badges_list_row_template" type="text/x-jquery-tmpl">
-				<li class="badges_list_row" id="badge_${BADGE_ID}">
-					<a href="#badge_detail_page&badge_id=${BADGE_ID}" data-transition="slide">
-						<h1>${NAME}</h1><p>${GOAL} ${GOAL_UNITS}</p>
+	<div id="food_list_page_content" data-role="content" data-theme="a">
+		<div data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain" >
+		 	<input type="radio" name="radio-active" id="radio-active" value="on" checked="checked" />
+		 	<label for="radio-active">Active</label>
+		 	<input type="radio" name="radio-active" id="radio-all" value="off"  />
+		 	<label for="radio-all">All</label>
+		</div>
+	    <br />
+		<ul id="food_list" data-role="listview" data-inset="true" data-filter="true" data-theme="e" data-divider-theme="b">
+			<script id="food_list_row_template" type="text/x-jquery-tmpl">
+				<li class="food_list_row" id="food_${food_id}" >
+					<a href="#food_detail_page&food_id=${food_id}" data-transition="slide">
+						<h1>${title}</h1><p>${date}</p>
 					</a>
 				</li>
 			</script>
@@ -58,116 +48,72 @@
 
 <!-- --- -->
 
-<div data-role="page" id="badge_detail_page">
-	<div data-role="header" data-position="inline" data-theme="d">
-		<a href="#list_badges_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>
-        <h1 class="head_title" id="badge_head_title">Badge Detail</h1>
-        <!-- <a id="save_button" href="#list_events_page" data-direction="reverse" data-icon="plus" data-theme="d">Save</a> --> <!-- TODO make this edit button -->
+<div data-role="page" id="food_detail_page">
+	<div data-role="header" data-position="inline" data-theme="a">
+		<a href="#food_list_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>
+        <h1 class="head_title" id="food_detail_head_title">Food Detail</h1>
+        <a id="detail_page_edit_button" href="#food_edit_page&food_id=${food_id}" data-direction="reverse" data-icon="gear" data-theme="e" data-iconpos="notext"></a>
     </div>
     
-	<div id="badge_detail_content" data-role="content">
-		<ul id="badge_detail" data-role="listview" data-inset="true" data-filter="true" data-theme="c" data-divider-theme="b">
-			<script id="badge_detail_template" type="text/x-jquery-tmpl">
-				<li class="badge_detail_row"id="badge_detail_${BADGE_ID}">
-					<h1>${NAME}</h1><h3><em>${GOAL} ${GOAL_UNITS}</em></h3><hr />
-					<br />
-					<p>${DESCRIPTION}</p>
-					<br />
-					<em>Created ${ADDED_DATE}</em>
-				</li>
-			</script>
-		</ul>
-	</div>
-</div>
-
-<!-- ------ Event Pages ------ -->
-
-<div data-role="page" id="list_events_page">
-    <div data-role="header" data-position="inline" data-theme="d">
-	    <h1 class="head_title">Event List</h1>
-		<a href="#home_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>
-        <a id="add_event_page_button" href="#add_event_page" data-transition="slide" data-icon="add" data-iconpos="notext" class="ui-btn-right"></a>
-   	</div>
-	
-	<!-- TODO should have centered buttons that switch between all events and this week -->
-	
-	<div id="event_list_page_content" data-role="content">
-		<ul id="events_list" data-role="listview" data-inset="true" data-filter="true" data-theme="c" data-divider-theme="b">
-			<script id="event_list_row_template" type="text/x-jquery-tmpl">
-				<li class="event_list_row" id="event_${EVENT_ID}">
-					<a href="#event_detail_page&event_id=${EVENT_ID}" data-transition="slide">
-						<h1>${TITLE}</h1><p>${DATE}</p>
-					</a>
-				</li>
-			</script>
-		</ul>
+	<div id="food_detail_content" data-role="content" data-theme="a">
+		<h1 id="detail_title">${title}</h1><h4><em id="detail_date">${date}</em><em> - </em><em id="detail_location">${location}</em></h4>
+		<hr />
+		<p id="detail_description">${description}</p>
+		<br />
+		<img id="detail_pic_url" src="" />
+		<br />
+		<p id="detail_lat_long">${lat_long}</p>
+		<br />
+		<em id="detail_date_modified">Modified ${date_modified}</em><p id="detail_upvotes">Upvoted ${upvotes} Times</p>
 	</div>
 </div>
 
 <!-- --- -->
 
-<div data-role="page" id="event_detail_page">
-	<div data-role="header" data-position="inline" data-theme="d">
-		<a href="#list_events_page" data-direction="reverse" data-icon="back" data-theme="d">Back</a>
-        <h1 class="head_title" id="detail_head_title">Event Detail</h1>
-        <!-- <a id="save_button" href="#list_events_page" data-direction="reverse" data-icon="plus" data-theme="d">Save</a> --> <!-- TODO make this edit button -->
+<div data-role="page" id="food_edit_page">
+	<div data-role="header" data-position="inline" data-theme="a">
+		<a href="#food_list_page" data-direction="reverse" data-icon="back" data-theme="d">Cancel</a>
+        <h1 class="food_edit_head_title">Edit Food</h1>
+        <a id="save_button" href="#food_list_page" data-direction="reverse" data-icon="check" data-theme="d">Save</a>
     </div>
-    
-	<div id="event_detail_content" data-role="content">
-		<ul id="event_detail" data-role="listview" data-inset="true" data-filter="true" data-theme="c" data-divider-theme="b">
-			<script id="event_detail_template" type="text/x-jquery-tmpl">
-				<li class="event_detail_row"id="event_detail_${EVENT_ID}">
-					<h1>${TITLE}</h1>${DATE}
-					<h3>A ${TYPE} Hosted by ${ORG_ID}</h3> <!-- want to have LETTERS here -->
-					<p>${START_TIME} to ${END_TIME}</p>
-					<em>${ADDRESS}</em></br></br>
-					<a href="http://foursquare.com/v/${FOURSQUARE}">Foursquare Venue Page</a>
-					<p>${SUMMARY}</p>
-					<h6>Alcohol: ${ALCOHOL}</h6> <!-- TODO have this actually show not a number.. -->
-					<h6><em>Date changed: ${DATE_CHANGED}</em></h6>
-				</li>
-			</script>
-		</ul>
-	</div>
-</div>
-
-<!-- --- -->
-
-<div data-role="page" id="add_event_page">
-	<div data-role="header" data-position="inline" data-theme="d">
-		<a href="#list_events_page" data-direction="reverse" data-icon="back" data-theme="d">Cancel</a>
-        <h1 class="head_title">Add Event</h1>
-        <a id="add_button" href="#list_events_page" data-direction="reverse" data-icon="plus" data-theme="d">Add</a>
-    </div>
-	<div id="add_event_content" data-role="content">
-		<div class="event_form">
-			<textarea rows="8" id="add_event_text"></textarea>
+	<div id="edit_food_content" data-role="content" data-theme="a">		
+		<div class="food_form" >
+			<div data-role="fieldcontain">
+				<label for="food_edit_title">Title:</label>
+				<input type="text" name="food_edit_title" id="food_edit_title" value="" placeholder="Short but descriptive title" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_date">Date:</label>
+				<input type="datetime" name="food_edit_date" id="food_edit_date" value="" placeholder="YYYY-MM-DDTHH:MM" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_time">Time:</label>
+				<input type="time" name="food_edit_time" id="food_edit_time" value="" placeholder="HH:MM" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_location">Location:</label>
+				<input type="text" name="food_edit_location" id="food_edit_location" value="" placeholder="Short but descriptive location" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_description">Description:</label>
+				<input type="text" name="food_edit_description" id="food_edit_description" value="" placeholder="Description of place and food" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_lat_long">Latitude and Longitude:</label>
+				<input type="text" name="food_edit_lat_long" id="food_edit_lat_long" value="" placeholder="xx.xxxxx,xx.xxxxx" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="food_edit_pic_url">Custom Picture URL:</label>
+				<input type="url" name="food_edit_pic_url" id="food_edit_pic_url" value="" placeholder="http://www.picurl.com/coolPic" />
+			</div>
         </div>
 	</div>
-</div>
-
-<!-- --- -->
-
-<div data-role="page" id="edit_event_page">
-	<div data-role="header" data-position="inline" data-theme="d">
-		<a href="#list_events_page" data-direction="reverse" data-icon="back" data-theme="d">Cancel</a>
-        <h1 class="head_title">Edit Event</h1>
-        <a id="save_button" href="#list_events_page" data-direction="reverse" data-icon="plus" data-theme="d">Save</a>
-    </div>
-	<div id="edit_event_content" data-role="content">		
-		<div class="event_form">
-			<textarea rows="8" id="edit_event_text"></textarea>
-        </div>
+<!--        </div>
 		<center>
-			<a id="remove_button" href="#list_events_page" data-direction="reverse" data-role="button" data-inline="true" data-icon="minus">Remove event</a>
+			<a id="food_remove_button" href="#food_list_page" data-direction="reverse" data-role="button" data-inline="true" data-icon="minus">Remove food</a>
 		</center>
-	</div>
+	</div> -->
 </div>
-
-<!-- ------ Gov_Org Pages ------ -->
-
-
-<!-- ------ Org Pages ------ -->
 
 <div data-role="dialog" id="error_dialog" >
 	<div data-role="header" data-position="inline" data-theme="d">
@@ -186,5 +132,3 @@
 		</script>
 	</div><!-- /content -->
 </div><!-- /dialog -->
-
-<!-- --- -->

@@ -1,6 +1,7 @@
 <?php
 	include 'db_helper.php';
-  
+	
+	// TODO sort by date, then upvotes
 	function listfood() {
 		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food`");
 		
@@ -10,9 +11,9 @@
 		echo json_encode($result);
 	}
   
-	function getEvent($id) {
+	function getFood($id) {
 		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` WHERE `food_id` =  '%s'", mysql_real_escape_string($id));
-		// echo $dbQuery;
+		//echo $dbQuery;
 		$result=getDBResultRecord($dbQuery);
 		
 		header("Content-type: application/json");
