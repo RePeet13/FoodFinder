@@ -13,8 +13,11 @@ $(function() {
 
 /* -- FOOD FUNCTIONS -- */
 
+/* Pages */
+
 	//Bind to the create so the food list page gets updated with the listing
-	$(document).on("pagebeforeshow", "#food_list_page", function(event, ui) {
+//	$(document).on("pagebeforeshow", "#food_list_page", function(event, ui) {
+	$("#food_list_page").bind("pagebeforeshow", function(event, ui) {
 		console.log("pagebeforeshow");
 	
 		//Remove the old rows
@@ -36,27 +39,9 @@ $(function() {
 		$("#food_list").listview("refresh");
 	});
 	
-	//Bind the food add page clear text
-	$(document).on("pagebeforeshow", "#food_add_page", function(event, ui) {
-		console.log("Add Food Page");
-		$("#food_add_title")[0].value = "";
-	});
-		
-	//Bind the add food page button
-	$(document).on("pagebeforeshow", "#food_add_page_button", function(event, ui) {
-		console.log("Add Button");
-		$.ajax({
-			url: "api/food",
-			dataType: "json",
-	        async: false,
-			data: {"foodTitle": $("#food_add_title")[0].value},
-			type: "POST",
-	        error: ajaxError
-		});
-	});
-		
 	//Bind the food detail page init text
-	$(document).on("pagebeforeshow", "#food_detail_page", function(event, ui) {
+	$("#food_detail_page").bind("pagebeforeshow", function(event, ui) {
+//	$(document).on("pagebeforeshow", "#food_detail_page", function(event, ui) {
 		console.log("Food Detail Page");
 		var food_id = $.url().fparam("food_id");
 		
@@ -88,12 +73,14 @@ $(function() {
 	});
 	
 	//Bind the edit page init text
-	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
+//	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
+	$("#food_edit_page").bind("pagebeforeshow", function(event, ui) {
 		console.log("Edit Food Page");
 		var food_id = $.url().fparam("food_id");
 		//Instead of passing around in JS I am doing AJAX so direct links work
 		//JQuery Fetch The Event
 		if (food_id) {
+			//$( "#food_remove_button" )[0].setAttribute("href", "food_list_page&food_id="+food_id);
 			$.ajax({
 				url: "api/food/"+food_id,
 				dataType: "json",
@@ -116,6 +103,7 @@ $(function() {
 			    error: ajaxError
 			});
 		} else {
+			//$( "#food_remove_button" )[0].setAttribute("href", "food_list_page");
 			$( "#food_edit_title" )[0].setAttribute("value", "");
 			$( "#food_edit_title" )[0].setAttribute("placeholder", "Short but descriptive title");
 	   		$( "#food_edit_date" )[0].setAttribute("value", "");
@@ -131,9 +119,33 @@ $(function() {
 		}
 	});
 	
+	//Bind the food add page clear text // TODO probably where all that stuff above should go..
+//	$(document).on("pagebeforeshow", "#food_add_page", function(event, ui) {
+	$("#food_add_page").bind("pagebeforeshow", function(event, ui) {
+		console.log("Add Food Page");
+		$("#food_add_title")[0].value = "";
+	});
+		
+/* Buttons */
+/*
+	//Bind the add food page button
+	$("#food_add_page_button").bind("click", function() {
+//	$(document).on("pagebeforeshow", "#food_add_page_button", function(event, ui) {
+		console.log("Add Button");
+		$.ajax({
+			url: "api/food",
+			dataType: "json",
+	        async: false,
+			data: {"foodTitle": $("#food_add_title")[0].value},
+			type: "POST",
+	        error: ajaxError
+		});
+	});
+*/
+
 	//Bind the edit page save button
-//	$("#save_button").bind("click", function() {
-	$(document).on("pagebeforeshow", "#save_button", function(event, ui) {
+	$("#save_button").bind("click", function() {
+//	$(document).on("pagebeforeshow", "#save_button", function(event, ui) {
 		console.log("Save Button");
 		var food_id = $.url().fparam("food_id");
 		$.ajax({
@@ -148,9 +160,10 @@ $(function() {
 	});
 	
 	//Bind the edit page remove button
-	$(document).on("pagebeforeshow", "#remove_button", function(event, ui) {
+	$("#food_remove_button").bind("click", function() {
 		console.log("Remove Button");
 		var food_id = $.url().fparam("food_id");
+		console.log("removing " + food_id);
 		$.ajax({
 			url: "api/food/"+food_id,
 			dataType: "json",
@@ -161,8 +174,8 @@ $(function() {
 	});
 	
 	//Cleanup of URL so we can have better client URL support
-//	$("#edit_event_page").bind("pagehide", function() {
-	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
+	$("#food_edit_page").bind("pagehide", function() {
+//	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
 		$(this).attr("data-url",$(this).attr("id"));
 		delete $(this).data()["url"];
 	});
