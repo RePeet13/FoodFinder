@@ -58,6 +58,16 @@
 				<exampleValue><![CDATA[33.777417,-84.397522]]></exampleValue>
 			</param>
 		</post>
+		
+		<put>
+		
+		</put>
+		
+		<delete>
+			<description><![CDATA[Delete specific food]]></description>
+			
+			<action file='food.php'><![CDATA[deleteFood($_REST['food']);]]></action>
+		</delete>
 	</command>
 	
 
