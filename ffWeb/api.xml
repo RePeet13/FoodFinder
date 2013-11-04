@@ -29,7 +29,7 @@
 				<![CDATA[The post method allows the posting of new food if the user is logged in.]]>
 			</description>
 			
-			<action file='food.php'><![CDATA[addFood($_POST['foodDate'], $_POST['foodTitle'], $_POST['foodLocation'], $_POST['foodDescription'], $_POST['foodPicUrl'], $_POST['foodLatLong']);]]></action>
+			<action file='food.php'><![CDATA[addFood($_POST['foodDate'], $_POST['foodTitle'], $_POST['foodLocation'], $_POST['foodDescription'], $_POST['foodPicUrl']);]]></action><!--, $_POST['foodLatLong']);]]></action>-->
 			
 			<param id='foodDate'>
 				<description><![CDATA[Date when food will be available]]></description>
@@ -53,10 +53,12 @@
 				<description><![CDATA[Pic of food and/or location of food]]></description>
 				<exampleValue><![CDATA[http://www.licensing.gatech.edu/sites/devlicensing.gatech.edu/files/images/trademarks-big.gif]]></exampleValue>
 			</param>
+			<!--
 			<param id='foodLatLong'>
 				<description><![CDATA[Latitude and Longitude of food]]></description>
 				<exampleValue><![CDATA[33.777417,-84.397522]]></exampleValue>
 			</param>
+			-->
 		</post>
 		
 		<put>

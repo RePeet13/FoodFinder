@@ -95,8 +95,8 @@ $(function() {
 			   		$( "#food_edit_location" )[0].setAttribute("placeholder", "");
 			   		$( "#food_edit_description" )[0].setAttribute("value", data.description);
 			   		$( "#food_edit_description" )[0].setAttribute("placeholder", "");
-			   		$( "#food_edit_lat_long" )[0].setAttribute("value", data.lat_long);
-			   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "");
+//			   		$( "#food_edit_lat_long" )[0].setAttribute("value", data.lat_long);
+//			   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "");
 			   		$( "#food_edit_pic_url" )[0].setAttribute("value", data.pic_url);
 			   		$( "#food_edit_pic_url" )[0].setAttribute("placeholder", "");
 			    },
@@ -112,8 +112,8 @@ $(function() {
 	   		$( "#food_edit_location" )[0].setAttribute("placeholder", "Short but descriptive location");
 	   		$( "#food_edit_description" )[0].setAttribute("value", "");
 	   		$( "#food_edit_description" )[0].setAttribute("placeholder", "Description of place and food");
-	   		$( "#food_edit_lat_long" )[0].setAttribute("value", "");
-	   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "xx.xxxxx,xx.xxxxx");
+//	   		$( "#food_edit_lat_long" )[0].setAttribute("value", "");
+//	   		$( "#food_edit_lat_long" )[0].setAttribute("placeholder", "xx.xxxxx,xx.xxxxx");
 	   		$( "#food_edit_pic_url" )[0].setAttribute("value", "");
 	   		$( "#food_edit_pic_url" )[0].setAttribute("placeholder", "http://www.picurl.com/coolPic");
 		}
@@ -148,15 +148,50 @@ $(function() {
 //	$(document).on("pagebeforeshow", "#save_button", function(event, ui) {
 		console.log("Save Button");
 		var food_id = $.url().fparam("food_id");
-		$.ajax({
-			url: "api/food/"+food_id,
-			dataType: "json",
-	        async: false,
-			data: {"eventText": $("#food_edit_text")[0].value},
-			headers: {"X-HTTP-Method-Override": "PUT"},
-			type: "POST",
-	        error: ajaxError
-		});
+		console.log("Food_Id " + food_id);
+		
+		console.log("foodTitle: " + $("#food_edit_title")[0].value);
+		console.log("foodDate: " + $("#food_edit_date")[0].value+"T"+$("#food_edit_time")[0].value);
+		console.log("foodLocation: " + $("#food_edit_location")[0].value);
+		console.log("foodDescription: " + $("#food_edit_description")[0].value);
+//		console.log("foodLatLong: " $("#food_edit_lat_long")[0].value);
+		console.log("foodPicUrl: " + $("#food_edit_pic_url")[0].value);
+		
+		if (food_id) {
+			console.log("cond was true..");
+			$.ajax({
+				url: "api/food/" + food_id,
+				dataType: "json",
+				async: false,
+				data: {
+					"foodTitle": $("#food_edit_title")[0].value,
+					"foodDate": $("#food_edit_date")[0].value+"T"+$("#food_edit_time")[0].value,
+					"foodLocation": $("#food_edit_location")[0].value,
+					"foodDescription": $("#food_edit_description")[0].value,
+	//				"foodLatLong": $("#food_edit_lat_long")[0].value,
+					"foodPicUrl": $("#food_edit_pic_url")[0].value
+				},
+				headers: {"X-HTTP-Method-Override": "PUT"},
+				type: "POST",
+				error: ajaxError
+			});
+		} else {
+			$.ajax({
+				url: "api/food/",
+				dataType: "json",
+				async: false,
+				data: {
+					"foodTitle": $("#food_edit_title")[0].value,
+					"foodDate": $("#food_edit_date")[0].value+"T"+$("#food_edit_time")[0].value,
+					"foodLocation": $("#food_edit_location")[0].value,
+					"foodDescription": $("#food_edit_description")[0].value,
+					"foodPicUrl": $("#food_edit_pic_url")[0].value
+				},
+				type: "POST",
+				error: ajaxError
+			});
+		}
+		
 	});
 	
 	//Bind the edit page remove button
