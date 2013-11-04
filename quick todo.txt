@@ -5,9 +5,5 @@ look into why lat long doesnt work for posting...
 improve upvote system by updating just one part (maybe just change it hoping the server accepted)
 reevaluate design choices
 -includes details pages
-sort order
 hide authenticate needed buttons if not logged in (Add, Edit)
 add log in button on food_list_page
-fix radio button functionality
--probably need another function in api (current_food)
-

@@ -69,10 +69,10 @@ $(function() {
 	       		$( "#detail_lat_long" )[0].innerHTML = data.lat_long;
 	       		$( "#detail_pic_url" )[0].setAttribute("src", data.pic_url);
 	       		$( "#detail_date_modified" )[0].innerHTML = "Modified " + data.date_modified;
-	       		$( "#detail_upvotes" )[0].innerHTML = "Upvoted " + data.upvotes + " times";
+	       		$( "#detail_upvotes" )[0].innerHTML = data.upvotes;
 	        },
 	        error: ajaxError
-		}); //$( "#food_upvote_button" )[0].setAttribute("href", "#food_detail_page&food_id=" + data.food_id);
+		});
 	});
 	
 	//Bind the edit page init text
@@ -223,6 +223,8 @@ $(function() {
 			type: "POST",
 	        error: ajaxError
 		});
+		
+		$( "#detail_upvotes" )[0].innerHTML = parseInt($( "#detail_upvotes" )[0].innerHTML) + 1;
 	});
 	
 	//Bind the radio buttons on list food page

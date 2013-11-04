@@ -38,8 +38,9 @@
     </div>
     
 	<div id="food_detail_content" data-role="content" data-theme="a">
-		<div style="float:right">
-			<a id="food_upvote_button" href="#food_list_page" data-direction="reverse" data-role="button" data-inline="true" data-icon="plus" data-theme="e">Upvote</a>
+		<div style="float:right" >
+			<a id="food_upvote_button" data-direction="reverse" data-role="button" data-inline="true" data-icon="plus" data-theme="e">Upvote</a> <!--href="#food_list_page"-->
+			<br /><span> &nbsp &nbsp Upvoted </span><span id="detail_upvotes" data-position="inline">${upvotes}</span><span> Times</span>
 		</div>
 		<h1 id="detail_title">${title}</h1><h4><em id="detail_date">${date}</em><em> - </em><em id="detail_location">${location}</em></h4>
 		<hr />
@@ -49,7 +50,7 @@
 		<br />
 		<p id="detail_lat_long">${lat_long}</p>
 		<br />
-		<em id="detail_date_modified">Modified ${date_modified}</em><p id="detail_upvotes">Upvoted ${upvotes} Times</p>
+		<em id="detail_date_modified">Modified ${date_modified}</em><div><span>Upvoted </span><span id="detail_upvotes" data-position="inline">${upvotes}</span><span> Times</span></div>
 	</div>
 </div>
 
