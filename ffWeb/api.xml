@@ -5,7 +5,7 @@
 	</description>
 	
 	
-<!-- Badges API -->
+<!-- food API -->
 	<command id='food' security='public'>
 		<description><![CDATA[This section reveals data about the food available.]]>
 		</description>
@@ -72,6 +72,13 @@
 		</delete>
 	</command>
 	
+	<command id='upvote' security='public'>	
+		<description><![CDATA[Upvote a specific food]]></description>
+		<post>
+			<description><![CDATA[Upvote a specific food]]></description>
+		    <action file='food.php'><![CDATA[upvoteFood($_REST['upvote']);]]></action>
+		</post>
+	</command>
 
 	<command id='debug' security='public'>	
 		<description><![CDATA[Just prints global variables]]></description>

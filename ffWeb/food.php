@@ -20,6 +20,15 @@
 		echo json_encode($result);
 	}
 	
+	function upvoteFood($id) {
+		$dbQuery = sprintf("UPDATE `food` SET `upvotes` = `upvotes`+1 WHERE `food_id` = '%s'", 
+			mysql_real_escape_string($id));
+		//echo $dbQuery;
+		$result = getDBResultAffected($dbQuery);
+		header("Content-type: application/json");
+		echo json_encode($result);
+	}
+	
 	function addFood($foodDate, $foodTitle, $foodLocation, $foodDescription, $foodPicUrl){//, $foodLatLong) {
 		// TODO only allow if uid is not empty
 		$dbQuery = sprintf("INSERT INTO food (`date`, `gtid`, `title`, `location`, `description`, `pic_url`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",

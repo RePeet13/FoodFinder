@@ -45,9 +45,6 @@ $(function() {
 		console.log("Food Detail Page");
 		var food_id = $.url().fparam("food_id");
 		
-		//Remove the old rows
-		$( ".food_detail_row" ).remove();
-		
 		//Instead of passing around in JS I am doing AJAX so direct links work
 		//JQuery Fetch The Event
 		$.ajax({
@@ -56,8 +53,8 @@ $(function() {
 	        async: false,
 	        success: function(data, textStatus, jqXHR) {
 				console.log(data);
-//	       		$( "#food_detail_template" ).tmpl( data ).appendTo( "#food_detail" );
 				$( "#detail_page_edit_button" )[0].setAttribute("href", "#food_edit_page&food_id=" + data.food_id);
+				$( "#food_upvote_button" )[0].setAttribute("href", "#food_detail_page&food_id=" + data.food_id);
 	       		$( "#food_detail_head_title" )[0].innerHTML = data.title;
 	       		$( "#detail_title" )[0].innerHTML = data.title;
 	       		$( "#detail_date" )[0].innerHTML = data.date;
@@ -204,6 +201,20 @@ $(function() {
 			dataType: "json",
 	        async: false,
 			type: "DELETE",
+	        error: ajaxError
+		});
+	});
+	
+	//Bind the upvote food page button
+	$("#food_upvote_button").bind("click", function() {
+//	$(document).on("pagebeforeshow", "#food_add_page_button", function(event, ui) {
+		console.log("Upvote Button");
+		var food_id = $.url().fparam("food_id");
+		$.ajax({
+			url: "api/upvote/" + food_id,
+			dataType: "json",
+	        async: false,
+			type: "POST",
 	        error: ajaxError
 		});
 	});
