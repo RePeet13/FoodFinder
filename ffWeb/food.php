@@ -3,7 +3,7 @@
 	
 	// TODO sort by date, then upvotes
 	function listfood() {
-		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food`");
+		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` ORDER BY `date` DESC, `upvotes` DESC");
 		
 		$result = getDBResultsArray($dbQuery);
 		
@@ -21,7 +21,7 @@
 	}
 	
 	function currentFood() {
-		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` WHERE `date` >  CURRENT_TIMESTAMP()");
+		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` WHERE `date` >  CURRENT_TIMESTAMP() ORDER BY `date` DESC, `upvotes` DESC");
 		//echo $dbQuery;
 		$result = getDBResultsArray($dbQuery);
 		
