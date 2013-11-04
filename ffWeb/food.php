@@ -22,7 +22,15 @@
 	
 	function addFood($foodDate, $foodTitle, $foodLocation, $foodDescription, $foodPicUrl, $foodLatLong) {
 		// TODO only allow if uid is not empty
-		$dbQuery = sprintf("INSERT INTO food (`date`, `gtid`, `title`, `location`, `description`, `pic_url`, `lat_long`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", mysql_real_escape_string($foodDate), $_USER['uid'], mysql_real_escape_string($foodTitle), mysql_real_escape_string($foodLocation), mysql_real_escape_string($foodDescription), mysql_real_escape_string($foodPicUrl), mysql_real_escape_string($foodLatLong));
+		$dbQuery = sprintf("INSERT INTO food (`date`, `gtid`, `title`, `location`, `description`, `pic_url`, `lat_long`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+			mysql_real_escape_string($foodDate), 
+			$_USER['uid'], 
+			mysql_real_escape_string($foodTitle), 
+			mysql_real_escape_string($foodLocation), 
+			mysql_real_escape_string($foodDescription), 
+			mysql_real_escape_string($foodPicUrl), 
+			mysql_real_escape_string($foodLatLong)
+		);
 		echo "Query " . $dbQuery;
 		$result = getDBResultInserted($dbQuery,'food_id');
 		
