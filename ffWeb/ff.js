@@ -54,7 +54,7 @@ $(function() {
 	        success: function(data, textStatus, jqXHR) {
 				console.log(data);
 				$( "#detail_page_edit_button" )[0].setAttribute("href", "#food_edit_page&food_id=" + data.food_id);
-				$( "#food_upvote_button" )[0].setAttribute("href", "#food_detail_page&food_id=" + data.food_id);
+				
 	       		$( "#food_detail_head_title" )[0].innerHTML = data.title;
 	       		$( "#detail_title" )[0].innerHTML = data.title;
 	       		$( "#detail_date" )[0].innerHTML = data.date;
@@ -66,7 +66,7 @@ $(function() {
 	       		$( "#detail_upvotes" )[0].innerHTML = "Upvoted " + data.upvotes + " times";
 	        },
 	        error: ajaxError
-		});
+		}); //$( "#food_upvote_button" )[0].setAttribute("href", "#food_detail_page&food_id=" + data.food_id);
 	});
 	
 	//Bind the edit page init text

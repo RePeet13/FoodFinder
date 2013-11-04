@@ -2,7 +2,6 @@ make editing work
 make sure values get cleared properly
 robustify and minimize code (take out duped code)
 look into why lat long doesnt work for posting...
-implement upvote system
 improve upvote system by updating just one part (maybe just change it hoping the server accepted)
 reevaluate design choices
 -includes details pages
