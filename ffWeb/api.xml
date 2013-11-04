@@ -80,6 +80,18 @@
 		</post>
 	</command>
 
+	<command id='current_food' security='public'>	
+		<description><![CDATA[Returns events that have not happened yet]]></description>
+		<index>
+			<description><![CDATA[Returns events that have not happened yet]]></description>
+		    <action file='food.php'><![CDATA[currentFood();]]></action>
+		</index>
+		<get>
+			<description><![CDATA[Returns events that have not happened yet]]></description>
+		    <action file='food.php'><![CDATA[currentFood();]]></action>
+		</get>
+	</command>
+	
 	<command id='debug' security='public'>	
 		<description><![CDATA[Just prints global variables]]></description>
 		<index>

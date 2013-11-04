@@ -20,6 +20,15 @@
 		echo json_encode($result);
 	}
 	
+	function currentFood() {
+		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` WHERE `date` >  CURRENT_TIMESTAMP()");
+		//echo $dbQuery;
+		$result = getDBResultsArray($dbQuery);
+		
+		header("Content-type: application/json");
+		echo json_encode($result);
+	}
+	
 	function upvoteFood($id) {
 		$dbQuery = sprintf("UPDATE `food` SET `upvotes` = `upvotes`+1 WHERE `food_id` = '%s'", 
 			mysql_real_escape_string($id));
