@@ -14,7 +14,7 @@
 	function getFood($id) {
 		$dbQuery = sprintf("SELECT `food_id`, `date`, `gtid`, `title`, `location`, `description`, `pic_url`, `upvotes`, `lat_long`, `date_modified` FROM `food` WHERE `food_id` =  '%s'", mysql_real_escape_string($id));
 		//echo $dbQuery;
-		$result=getDBResultRecord($dbQuery);
+		$result = getDBResultRecord($dbQuery);
 		
 		header("Content-type: application/json");
 		echo json_encode($result);
@@ -28,5 +28,13 @@
 		
 		header("Content-type: application/json");
 		echo json_encode($result) . "</br>";
+	}
+	
+	function deleteFood($id) {
+		$dbQuery = sprintf("DELETE FROM food WHERE food_id = '%s'", mysql_real_escape_string($id));
+		$result = getDBResultAffected($dbQuery);
+		
+		header("Content-type: application/json");
+		echo json_encode($result);
 	}
 ?>
