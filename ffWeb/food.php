@@ -27,7 +27,7 @@
 		$result = getDBResultInserted($dbQuery,'food_id');
 		
 		header("Content-type: application/json");
-		echo json_encode($result) . "</br>";
+		echo json_encode($result);
 	}
 	
 	function deleteFood($id) {
