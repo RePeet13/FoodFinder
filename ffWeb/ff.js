@@ -23,9 +23,15 @@ $(function() {
 		//Remove the old rows
 		$( ".food_list_row" ).remove();
 		
+		var url = "api/food/"
+		
+		if ( $( "#radio-all" )[0].value === "off" ) {
+			url = "api/current_food/"
+		}
+		
 		//JQuery Fetch The New Ones
 		$.ajax({
-			url: "api/food",
+			url: url,
 			dataType: "json",
 	        async: false,
 	        success: function(data, textStatus, jqXHR) {
@@ -196,6 +202,7 @@ $(function() {
 		console.log("Remove Button");
 		var food_id = $.url().fparam("food_id");
 		console.log("removing " + food_id);
+		
 		$.ajax({
 			url: "api/food/"+food_id,
 			dataType: "json",
@@ -207,7 +214,6 @@ $(function() {
 	
 	//Bind the upvote food page button
 	$("#food_upvote_button").bind("click", function() {
-//	$(document).on("pagebeforeshow", "#food_add_page_button", function(event, ui) {
 		console.log("Upvote Button");
 		var food_id = $.url().fparam("food_id");
 		$.ajax({
@@ -219,9 +225,52 @@ $(function() {
 		});
 	});
 	
+	//Bind the radio buttons on list food page
+	$("#radio-all").bind("click", function() {
+		console.log("All Radio Button Pressed");
+		//Remove the old rows
+		$( ".food_list_row" ).remove();
+		
+		//JQuery Fetch The New Ones
+		$.ajax({
+			url: "api/food/",
+			dataType: "json",
+	        async: false,
+	        success: function(data, textStatus, jqXHR) {
+				console.log(data);
+	        	//Create The New Rows From Template
+	        	$( "#food_list_row_template" ).tmpl( data ).appendTo( "#food_list" );
+	        },
+	        error: ajaxError
+		});
+		
+		$("#food_list").listview("refresh");
+	});
+	
+	//Bind the radio buttons on list food page
+	$("#radio-active").bind("click", function() {
+		console.log("Active Radio Button Pressed");
+		//Remove the old rows
+		$( ".food_list_row" ).remove();
+		
+		//JQuery Fetch The New Ones
+		$.ajax({
+			url: "api/current_food/",
+			dataType: "json",
+	        async: false,
+	        success: function(data, textStatus, jqXHR) {
+				console.log(data);
+	        	//Create The New Rows From Template
+	        	$( "#food_list_row_template" ).tmpl( data ).appendTo( "#food_list" );
+	        },
+	        error: ajaxError
+		});
+		
+		$("#food_list").listview("refresh");
+	});
+	
 	//Cleanup of URL so we can have better client URL support
 	$("#food_edit_page").bind("pagehide", function() {
-//	$(document).on("pagebeforeshow", "#food_edit_page", function(event, ui) {
 		$(this).attr("data-url",$(this).attr("id"));
 		delete $(this).data()["url"];
 	});

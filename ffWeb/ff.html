@@ -7,12 +7,14 @@
    	</div>
 	
 	<div id="food_list_page_content" data-role="content" data-theme="a">
-		<div data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain" >
-		 	<input type="radio" name="radio-active" id="radio-active" value="on" checked="checked" />
-		 	<label for="radio-active">Active</label>
-		 	<input type="radio" name="radio-active" id="radio-all" value="off"  />
-		 	<label for="radio-all">All</label>
-		</div>
+			<div id="radio_buttons" data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain" >
+				<center>
+				 	<input type="radio" name="radio-active" id="radio-active" value="on" checked="checked" />
+				 	<label for="radio-active">Current</label>
+				 	<input type="radio" name="radio-active" id="radio-all" value="off"  />
+				 	<label for="radio-all">Archive</label>
+				</center>
+			</div>
 	    <br />
 		<ul id="food_list" data-role="listview" data-inset="true" data-filter="true" data-theme="e" data-divider-theme="b">
 			<script id="food_list_row_template" type="text/x-jquery-tmpl">
